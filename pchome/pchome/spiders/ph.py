@@ -2,7 +2,6 @@
 import scrapy
 import re
 from copy import deepcopy
-import urllib
 from pchome.settings import ALL_CLASS
 from pchome.items import PchomeItem
 import json
@@ -34,20 +33,19 @@ class PhSpider(scrapy.Spider):
 
     def parse(self, response):
         item = response.meta['item']
-        data = PchomeItem()
-        data['class_num'] = ALL_CLASS[item["class_"]]['class_num']
-        data['class_no'] = item["class_"]
+        item['class_num'] = ALL_CLASS[item["class_"]]['class_num']
         limit = 30
         if response.text != 'try{top_prod([]);}catch(e){if(window.console){console.log(e);}}':
-            products = response.body.decode('utf-8').replace('try{top_prod(', '').replace(
-                ');}catch(e){if(window.console){console.log(e);}}', '')
-            products = json.loads(products)
+            res_content = re.compile(r"try{top_prod\((.+)\);}catch\(e\)")
+            product_str = res_content.search(response.body.decode('utf-8')).group(1)
+            products = json.loads(product_str)
             for product in products:
-                data['no'] = product['Id']
-                product_url = f"https://mall.pchome.com.tw/ecapi/ecshop/prodapi/v2/prod/{product['Id']}&store={data['class_no']}&fields=Id,Nick,Price,Pic,Qty&_callback=jsonp_prod&1583813520?_callback=jsonp_prod"
+                item['no'] = re.sub('-000', '', product['Id'])
+                product_url = f"https://mall.pchome.com.tw/ecapi/ecshop/prodapi/v2/prod/{product['Id']}&store={item['class_']}&fields=Nick,Price,Pic,Qty&_callback=jsonp_prod&1585406880?_callback=jsonp_prod"
                 yield scrapy.Request(
                     product_url,
-                    meta={'data': data},
+                    meta={'item': deepcopy(item)},
+                    headers={'Referer': f'https://mall.pchome.com.tw/prod/{product["Id"]}M?q=/S/{item["class_"]}'},
                     callback=self.parse_data_detail,
                     dont_filter=True
                 )
@@ -61,8 +59,8 @@ class PhSpider(scrapy.Spider):
                 callback=self.parse,
                 dont_filter=True
             )
-
     def parse_data_detail(self, response):
-        data = response.meta['data']
-        products = response.body.decode('utf-8')
-        print(products)
+        item = response.meta['item']
+        res_content = re.compile(r"try{jsonp_prod\((.+)\);}catch\(e\)")
+        product_str = res_content.search(response.body.decode('utf-8')).group(1)
+        print(product_str)
