@@ -21,7 +21,18 @@ class PchomeImgPipeline(ImagesPipeline):
                 meta={'no': item['no']}
             )
     def file_path(self, request, response=None, info=None):
-        image_guid = request.url.split('/')[-1]
         name = request.meta['no']
 
         return f"{name}.jpg"
+
+class PchomeContentImgPipeline(ImagesPipeline):
+    def get_media_requests(self, item, info):
+        for content_pic_url in item['content_pic_urls']:
+            yield Request(
+                content_pic_url
+            )
+    def file_path(self, request, response=None, info=None):
+        file_name = request.url.split("/")[-2]
+        name = request.url.split("/")[-1]
+
+        return f"{file_name}/{name}"

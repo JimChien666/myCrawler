@@ -9,16 +9,15 @@ import scrapy
 
 
 class PchomeItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
     class_num = scrapy.Field()
-    class_no = scrapy.Field()
     no = scrapy.Field()
     name = scrapy.Field()
     price = scrapy.Field()
     image_urls = scrapy.Field()
     original_price = scrapy.Field()
     images = scrapy.Field()
+    content_pic_urls = scrapy.Field()
+    content_pic = scrapy.Field()
 
 class BeForm(scrapy.Item):
     pass
