@@ -18,6 +18,7 @@ class PchomeItem(scrapy.Item):
     images = scrapy.Field()
     content_pic_urls = scrapy.Field()
     content_pic = scrapy.Field()
+    spec = scrapy.Field()
 
 class BeForm(scrapy.Item):
     pass
