@@ -86,6 +86,21 @@ class PhSpider(scrapy.Spider):
         content_pics_js = res_content_pics_js.search(response.body.decode('utf-8')).group(1)
         content_pics = json.loads(content_pics_js)
         item['content_pic_urls'] = [f"https://e.ecimg.tw{pic['Pic']}" for pic in list(content_pics.values())[0]]
+        spec_js_url = f"https://ecapi.pchome.com.tw/cdn/ecshop/prodapi/v2/prod/{item['no']}/desc&fields=Stmt&_callback=jsonp_desc?_callback=jsonp_desc"
+        yield scrapy.Request(
+            spec_js_url,
+            headers={'Referer': f"https://mall.pchome.com.tw/prod/{item['no']}?q=/S/QAAI0D"},
+            meta={"item": item, "class_": class_},
+            callback=self.parse_spec_js,
+            dont_filter=True
+        )
+
+    def parse_spec_js(self, response):
+        item = response.meta['item']
+        class_ = response.meta['class_']
+        res_spec_js = re.compile(r"try{jsonp_desc\((.+)\);}catch\(e\)")
+        spec_js = res_spec_js.search(response.body.decode('utf-8')).group(1)
+        spec = json.loads(spec_js)
+        spec = spec.get(f"{item['no']}").get('Stmt')
+        item['spec'] = spec
         yield item
-
-

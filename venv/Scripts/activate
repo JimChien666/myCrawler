@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="D:\PycharmProjects\learn_scrapy\venv"
+VIRTUAL_ENV="C:\Users\nn\PythonProjects\MyCrawl\myCrawler\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
