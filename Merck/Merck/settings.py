@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for pchome project
+# Scrapy settings for Merck project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,17 +9,17 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'pchome'
+BOT_NAME = 'Merck'
 
-SPIDER_MODULES = ['pchome.spiders']
-NEWSPIDER_MODULE = 'pchome.spiders'
+SPIDER_MODULES = ['Merck.spiders']
+NEWSPIDER_MODULE = 'Merck.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36'
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = False
+ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -39,22 +39,22 @@ DOWNLOAD_DELAY = 1
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-#DEFAULT_REQUEST_HEADERS = {
-#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#   'Accept-Language': 'en',
-#}
+DEFAULT_REQUEST_HEADERS = {
+  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+  'Accept-Language': 'zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7',
+}
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'pchome.middlewares.PchomeSpiderMiddleware': 543,
+#    'Merck.middlewares.MerckSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-# DOWNLOADER_MIDDLEWARES = {
-#    'pchome.middlewares.PchomeDownloaderMiddleware': 543,
-# }
+#DOWNLOADER_MIDDLEWARES = {
+#    'Merck.middlewares.MerckDownloaderMiddleware': 543,
+#}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -65,9 +65,7 @@ DOWNLOAD_DELAY = 1
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   # 'pchome.pipelines.PchomePipeline': 299,
-    'pchome.pipelines.PchomeImgPipeline': 300,
-    'pchome.pipelines.PchomeContentImgPipeline': 301,
+   'Merck.pipelines.MerckPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -90,21 +88,10 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+host="sciket.citvv9lef621.ap-northeast-1.rds.amazonaws.com"
+port=3306
+user="sciket_rd"
+passwd="orangePig2019"
+db="test.sciket.com"
 
-ALL_CLASS = {
-            'QAAI0D': {'class_name': 'NB筆電', 'class_num': '5954'},
-            'QAAI06': {'class_name': 'PC', 'class_num': '5955'},
-            'QAAI05': {'class_name': '列印', 'class_num': '5956'},
-            'QAAI0C': {'class_name': '平板電腦', 'class_num': '5957'},
-            'QAAI0E': {'class_name': '平板週邊', 'class_num': '5958'},
-            'QAAI26': {'class_name': '行動電源/電池', 'class_num': '5959'},
-            'QAAI0A': {'class_name': '電腦周邊', 'class_num': '5960'},
-            'QAAI07': {'class_name': '鍵盤/滑鼠', 'class_num': '5961'},
-            'QAAI08': {'class_name': '藍牙耳機', 'class_num': '5962'},
-            'QAAI09': {'class_name': '喇叭', 'class_num': '5963'},
-            'QAAI10': {'class_name': '生活家電', 'class_num': '5964'},
-            'QAAI1A': {'class_name': 'LED 居家燈飾系列', 'class_num': '5965'}
-}
-
-IMAGES_STORE = 'C:\\Users\\nn\\OneDrive\\文件'
-LOG_LEVEL = 'WARNING'
+# LOG_LEVEL = 'WARNING'
