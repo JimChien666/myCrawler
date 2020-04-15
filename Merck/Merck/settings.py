@@ -88,10 +88,6 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-host="sciket.citvv9lef621.ap-northeast-1.rds.amazonaws.com"
-port=3306
-user="sciket_rd"
-passwd="orangePig2019"
-db="test.sciket.com"
+
 
 # LOG_LEVEL = 'WARNING'
